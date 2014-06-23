@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.8/d3.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
 	<style>
 		svg {
 			border: 1px solid black;
@@ -45,25 +46,32 @@
 		var path = d3.geo.path()
 		  .projection(projection);
 
-		d3.json("california-drought.json", function(error, map) {
-		    svg.selectAll("path")
-		       .data(topojson.feature(map, map.objects.drought).features)
-		       .enter()
-		       .append("path")
-		       .attr("d", path)
-		});
+    queue()
+      .defer(d3.json, "california-drought-topo.json")
+      .await(drawMap);
 
-		svg.selectAll(".pin")
-			.data(places)
-		  .enter()
-		  .append("circle", ".pin")
-		    .attr("r", 5)
-		    .attr("transform", function(d) {
-		      return "translate(" + projection([
-		        d.location.longitude,
-		        d.location.latitude
-		      ]) + ")"
-		    });
+    function drawMap(error, map){
+      svg.selectAll("path")
+        .data(topojson.feature(map, map.objects.drought).features)
+        .enter()
+        .append("path")
+        	.attr("d", path)
+        	.attr("id", function(d){
+        		return "dm" + d.id;
+        });
+      svg.selectAll(".dot")
+      	.data(places)
+        .enter()
+        .append("circle")
+          .attr("r", 3)
+          .attr("transform", function(d){
+            return "translate(" + projection([
+              d.location.longitude,
+              d.location.latitude
+            ]) + ")"
+          })
+          .attr("class", "dot");
+    }
 	</script>
 </body>
 </html>

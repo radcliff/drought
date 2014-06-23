@@ -7,16 +7,35 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
 	<style>
+		html, body {
+			overflow: hidden;
+		}
 		svg {
 			border: 1px solid black;
 		}
 		path {
-  		stroke: black;
-  		stroke-width: 0.25px;
-  		fill: white;
+			opacity: 0.7;
 		}
-		.pin {
-			fill: black;
+		path#dm0 {
+			fill: #FFFF00;
+		}
+		path#dm1 {
+			fill: #FCD37F;
+		}
+		path#dm2 {
+			fill: #FFAA00;
+		}
+		path#dm3 {
+			fill: #E60000;
+		}
+		path#dm4 {
+			fill: #730000;
+		}
+
+		circle.dot {
+			stroke: black;
+			stroke-width: 2;
+			fill: none;
 		}
 	</style>
 </head>
@@ -29,15 +48,31 @@
 		      latitude: 32.715738,
 		      longitude: -117.1610838
 		    }
+		  },
+		  {
+		    name: "San Francisco",
+		    location: {
+		      latitude: 37.7749295,
+		      longitude: -122.4194155
+		    }
+		  },
+		  {
+		    name: "Black Butte",
+		    location: {
+		      latitude: 41.39166669999999,
+		      longitude: -122.3611111
+		    }
 		  }
 		]
 
 		var svgWidth = window.innerWidth - (window.innerWidth / 3),
-	    svgHeight = window.innerHeight - 20;
+		    	svgHeight = window.innerHeight - 20;
 
-		var projection = d3.geo.albersUsa()
-			.translate([svgWidth + (svgWidth / 2), svgHeight / 2])
-			.scale([3000]);
+		var projection = d3.geo.albers()
+			.translate([50, svgHeight/2 - 95])
+			//.translate([svgWidth*2, svgHeight / 2 + 50])
+			.scale([4000])
+			.rotate([123,0]);
 		    
 		var svg = d3.select("body").append("svg")
 	    .attr("width", svgWidth)

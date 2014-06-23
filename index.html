@@ -14,10 +14,22 @@
   		stroke-width: 0.25px;
   		fill: white;
 		}
+		.pin {
+			fill: black;
+		}
 	</style>
 </head>
 <body>
 	<script>
+		var places = [
+		  {
+		    name: "San Diego",
+		    location: {
+		      latitude: 32.715738,
+		      longitude: -117.1610838
+		    }
+		  }
+		]
 
 		var svgWidth = window.innerWidth - (window.innerWidth / 3),
 	    svgHeight = window.innerHeight - 20;
@@ -40,6 +52,18 @@
 		       .append("path")
 		       .attr("d", path)
 		});
+
+		svg.selectAll(".pin")
+			.data(places)
+		  .enter()
+		  .append("circle", ".pin")
+		    .attr("r", 5)
+		    .attr("transform", function(d) {
+		      return "translate(" + projection([
+		        d.location.longitude,
+		        d.location.latitude
+		      ]) + ")"
+		    });
 	</script>
 </body>
 </html>

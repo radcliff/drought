@@ -60,9 +60,9 @@
 			-webkit-border-radius: 2px;
 			-moz-border-radius: 2px;
 			border-radius: 2px;
-			-webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); 
-			-moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); 
-			box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); 
+			-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+			-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
 			pointer-events: none;
 		}
 		#tooltip::before {
@@ -81,6 +81,58 @@
 		#tooltip.hidden {
 			display: none;
 		}
+		.legend {
+			position: absolute;
+			width: 147px;
+			height: auto;
+			background-color: white;
+			border: .5px solid white;
+			border-spacing: 5px;
+			font-size: .7em;
+			font-weight: bold;
+			-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+			-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+			left: 10px;
+			bottom: 10px;
+		}
+		.legend-header {
+			font-size: .85em;
+			font-weight: bold;
+			text-align: center;
+			padding: 3px 0 3px 0;
+			position: absolute;
+			width: 147px;
+			height: auto;
+			background-color: white;
+			left: 10px;
+			bottom: 145px;
+		}
+		table.legend td {
+			padding: 0 3px 0 3px;
+		}
+		tr#top-row td, tr#bottom-row td {
+			padding-bottom: 3px;
+		}
+		div.color-key {
+			width: 25px;
+			height: 25px;
+		}
+		div#dm0 {
+			background-color: #FFFF00;
+		}
+		div#dm1 {
+			background-color: #FCD37F;
+		}
+		div#dm2 {
+			background-color: #FFAA00;
+		}
+		div#dm3 {
+			background-color: #E60000;
+		}
+		div#dm4 {
+			background-color: #730000;
+		}
 	</style>
 </head>
 <body>
@@ -89,6 +141,29 @@
 	</div>
 	<div class="pure-g">
 		<div class="pure-u-1-2 svg-container">
+			<div class="legend legend-header">Drought Intensity</div>
+			<table class="legend">
+				<tr id="top-row">
+					<td><div class="color-key" id="dm0"></div></td>
+					<td>Abnormally Dry</td>
+				</tr>
+				<tr>
+					<td><div class="color-key" id="dm1"></div></td>
+					<td>Moderate Drought</td>
+				</tr>
+				<tr>
+					<td><div class="color-key" id="dm2"></div></td>
+					<td>Severe Drought</td>
+				</tr>
+				<tr>
+					<td><div class="color-key" id="dm3"></div></td>
+					<td>Extreme Drought</td>
+				</tr>
+				<tr id="bottom-row">
+					<td><div class="color-key" id="dm4"></div></td>
+					<td>Exceptional Drought</td>
+				</tr>
+			</table>
 		</div>
 
 		<div class="pure-u-1-2 other-div">

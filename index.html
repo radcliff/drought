@@ -47,6 +47,40 @@
 			stroke-width: 2;
 			fill: white;
 		}
+		#tooltip {
+			position: absolute;
+			width: 200px;
+			height: auto;
+			padding: 7px;
+			background-color: white;
+			border: .5px solid white;
+			border-spacing: 5px;
+			font-size: .7em;
+			font-weight: bold;
+			-webkit-border-radius: 2px;
+			-moz-border-radius: 2px;
+			border-radius: 2px;
+			-webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); 
+			-moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); 
+			box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); 
+			pointer-events: none;
+		}
+		#tooltip::before {
+			background: none;
+		  border: 1px solid black;
+		  content: "";
+		  display: block;
+		  position: absolute;
+		  top: 2px;
+		  left: 2px;
+		  right: 2px;
+		  bottom: 2px;
+		  pointer-events: none;
+		  opacity: .5;
+		}
+		#tooltip.hidden {
+			display: none;
+		}
 	</style>
 </head>
 <body>
@@ -66,6 +100,7 @@
 		var places = [
 		  {
 		    name: "San Diego",
+		    title: "Drought in California May Make Water More Valuable Than Gold",
 		    location: {
 		      latitude: 32.715738,
 		      longitude: -117.1610838
@@ -73,6 +108,7 @@
 		  },
 		  {
 		    name: "San Francisco",
+		    title: "San Francisco Hypocrites: 'Green' City Fails to Conserve Water During Drought",
 		    location: {
 		      latitude: 37.7749295,
 		      longitude: -122.4194155
@@ -80,6 +116,7 @@
 		  },
 		  {
 		    name: "Black Butte",
+		    title: "California salmon migrate by truck as state helps fish through drought",
 		    location: {
 		      latitude: 41.39166669999999,
 		      longitude: -122.3611111
@@ -103,7 +140,10 @@
 		var path = d3.geo.path()
 		  .projection(projection);
 
-		var dotRadius = 5;
+		var dotRadius = 5,
+			tooltip = d3.select(".svg-container").append("div")
+    		.attr("id", "tooltip")
+    		.style("opacity", 0);
 
     queue()
       .defer(d3.json, "california-drought-topo.json")
@@ -131,15 +171,31 @@
           })
           .attr("class", "dot")
           .attr("cursor", "pointer")
-        .on("mouseover", function(){
-        	d3.select(this)
+
+        .on("mouseover", function(d){
+  	      d3.select(this)
         		.transition().ease("bounce")
 						.attr("r", dotRadius * 2);
+					
+					tooltip
+						//.transition().duration(150)
+						.style("opacity", 1)
+						.text(d.title)
+						.style("left", (d3.event.pageX + 20) + "px")
+						.style("top", (d3.event.pageY - 25) + "px");
         })
+
         .on("mouseout", function(){
+        	tooltip
+        		.transition().duration(100)
+        		.style("opacity", 0);
+
         	d3.select(this)
         		.transition().duration(150)
         		.attr("r", dotRadius);
+        })
+        .on("click", function(){
+        	console.log(this)
         });
     }
 	</script>

@@ -35,7 +35,7 @@
 		circle.dot {
 			stroke: black;
 			stroke-width: 2;
-			fill: none;
+			fill: white;
 		}
 	</style>
 </head>
@@ -81,6 +81,8 @@
 		var path = d3.geo.path()
 		  .projection(projection);
 
+		var dotRadius = 5;
+
     queue()
       .defer(d3.json, "california-drought-topo.json")
       .await(drawMap);
@@ -98,14 +100,25 @@
       	.data(places)
         .enter()
         .append("circle")
-          .attr("r", 3)
+          .attr("r", dotRadius)
           .attr("transform", function(d){
             return "translate(" + projection([
               d.location.longitude,
               d.location.latitude
             ]) + ")"
           })
-          .attr("class", "dot");
+          .attr("class", "dot")
+          .attr("cursor", "pointer")
+        .on("mouseover", function(){
+        	d3.select(this)
+        		.transition().ease("bounce")
+						.attr("r", dotRadius * 2);
+        })
+        .on("mouseout", function(){
+        	d3.select(this)
+        		.transition().duration(150)
+        		.attr("r", dotRadius);
+        });
     }
 	</script>
 </body>

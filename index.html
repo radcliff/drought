@@ -52,7 +52,6 @@
 			width: 200px;
 			height: auto;
 			padding: 7px;
-			background-color: white;
 			border: .5px solid white;
 			border-spacing: 5px;
 			font-size: .7em;
@@ -60,9 +59,6 @@
 			-webkit-border-radius: 2px;
 			-moz-border-radius: 2px;
 			border-radius: 2px;
-			-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-			-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
 			pointer-events: none;
 		}
 		#tooltip::before {
@@ -85,16 +81,12 @@
 			position: absolute;
 			width: 147px;
 			height: auto;
-			background-color: white;
 			border: .5px solid white;
 			border-spacing: 5px;
 			font-size: .7em;
 			font-weight: bold;
-			-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-			-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
-			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
 			left: 10px;
-			bottom: 10px;
+			bottom: 15px;
 		}
 		.legend-header {
 			font-size: .85em;
@@ -104,9 +96,8 @@
 			position: absolute;
 			width: 147px;
 			height: auto;
-			background-color: white;
 			left: 10px;
-			bottom: 145px;
+			bottom: 150px;
 		}
 		table.legend td {
 			padding: 0 3px 0 3px;
@@ -133,16 +124,44 @@
 		div#dm4 {
 			background-color: #730000;
 		}
+		.article-container {
+			max-width: 30em;
+			top: 35px;
+			bottom: 15px;
+			position: absolute;
+			overflow: auto;
+			margin-left: 25px;
+			padding: 10px;
+		}
+		header {
+			font-size: 2em;
+			line-height: 1;
+			padding: 5px; 
+		}
+		article {
+			margin-top: 10px;
+			padding: 5px 20px 5px 20px;
+			line-height: 1.5;
+		}
+		footer {
+			font-size: 1.5em;
+		}
+		.shadow-box {
+			background-color: white;
+			-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+			-moz-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+		}
 	</style>
 </head>
-<body>
+<body class="content">
 	<div class="pure-menu pure-menu-horizontal" style="background-color:#f0daad;">
     <a href="#" class="pure-menu-heading">The California Drought</a>
 	</div>
 	<div class="pure-g">
 		<div class="pure-u-1-2 svg-container">
-			<div class="legend legend-header">Drought Intensity</div>
-			<table class="legend">
+			<div class="legend legend-header shadow-box">Drought Intensity</div>
+			<table class="legend shadow-box">
 				<tr id="top-row">
 					<td><div class="color-key" id="dm0"></div></td>
 					<td>Abnormally Dry</td>
@@ -166,8 +185,30 @@
 			</table>
 		</div>
 
-		<div class="pure-u-1-2 other-div">
-			
+		<div class="pure-u-1-2 article-container">
+			<section>
+				<header class="shadow-box">Drought in California May Make Water More Valuable Than Gold</header>
+				<article class="shadow-box" style="opacity:0.85">
+					With California experiencing the greatest drought in its recorded history, and voluntary conservation measures only marginally reducing overall water usage, the Golden State may see water rates soar to the level where water becomes more valuable than gold.
+
+					With no rain or snow for most of California for the past three years, 2014 has turned out to be among the driest years in the state’s 164-year history. According to the U.S. Draught Monitor, one-third of California is in a state of “exceptional drought” — the most severe level of drought conditions. “Extreme drought” coverage, the second worst category, has now climbed to 67 percent. This is almost twice the level of extreme drought that was recorded in the drought of 2007.
+
+					Recognizing the severity of this historic drought on the state, California Governor Jerry Brown declared a State of Emergency on January 17 and then again on April 25, the governor issued an executive order to speed up actions necessary to reduce harmful effects of the drought, and he called on all Californians to redouble their efforts to conserve water.
+
+					“I’ve declared this emergency,” stated Governor Brown in an official Drought Declaration order issued from Sacramento.
+
+					As a result, California communities from Alameda to Yucca Valley have implemented voluntary mandatory conservation efforts. However, these efforts are falling short of making a real impact on the overall drought challenges California faces. In fact, according to the Public Policy Institute of California, a California think tank, only 75 percent of California residents see the draught as a problem.
+
+					“People don’t like being dictated to. They prefer voluntary to mandatory conservation,” said a spokesman for the Metropolitan Water District, which provides water to 19 million people in the Los Angeles and San Diego areas.
+
+					Adding to this tepid response to water conservation is California’s complex water management system that lacks a cohesive water management strategy. For example, while only three companies provide the vast majority of Californians’ electricity, there are nearly 3,000 water providers statewide, all with different parameters. These water providers are as diverse as the communities they serve. This is why no California governor has ever been able to order mandatory water rationing statewide. Huge legal questions would arise about how mandatory rationing would work or whether any governor could even enforce the rules, particularly on farmers and their private wells. Therefore, in order to manage usage of water across California as well as prepare for continued drought conditions, many experts believe rates are going to increase dramatically, making water in California more valuable than gold.
+
+					DroughtAccording to Circle of Blue, an independent research organization founded in 2000 by leading journalists and scientists, Fresno will see a more than 30 percent increase in its water fees during 2014 while Los Angeles will likely see a more than 19 percent increase in water rates during the year. San Diego residents have already seen their water rates rise on average 7.25 percent in 2014 with an additional 7.5 percent increase on the horizon in 2015. For San Diego residents, that means that some families could see their monthly water bills increase nearly $230 this year. Adding to these painful rate increases will be additional penalties that come in the form of stiff fines for excessive water usage. These penalties range from $374 to $1,000 for watering violations.
+
+					The message is clear throughout California. Water is quickly as valuable as gold and becoming the most important commodity in the state, and without measurable rainfall in the future, the Golden State can expect to see water treated as liquid gold.
+				</article>
+				<!-- <footer>By Vincent Aviani</footer> -->
+			</section>
 		</div>
 	</div>
 
@@ -199,8 +240,14 @@
 		  }
 		]
 
-		var svgWidth = window.innerWidth / 2, //615px
-		    	svgHeight = window.innerHeight; //700px
+		var svgWidth = function(){
+			if (window.innerWidth < 615 * 2) {
+				return 615 + "px";
+			} else {
+				return window.innerWidth / 2;
+			}
+		},
+		  svgHeight = window.innerHeight; //700px
 
 		var projection = d3.geo.albers()
 			.translate([50, svgHeight/2 - 110])
@@ -218,6 +265,7 @@
 		var dotRadius = 5,
 			tooltip = d3.select(".svg-container").append("div")
     		.attr("id", "tooltip")
+    		.attr("class", "shadow-box")
     		.style("opacity", 0);
 
     queue()
@@ -226,16 +274,17 @@
 
     function drawMap(error, map){
       svg.selectAll("path")
-        .data(topojson.feature(map, map.objects.drought).features)
-        .enter()
+        .data(topojson.feature(map, map.objects.drought).features).enter()
+        
         .append("path")
         	.attr("d", path)
         	.attr("id", function(d){
         		return "dm" + d.id;
         });
+
       svg.selectAll(".dot")
-      	.data(places)
-        .enter()
+      	.data(places).enter()
+
         .append("circle")
           .attr("r", dotRadius)
           .attr("transform", function(d){

@@ -3,9 +3,9 @@
 <head>
 	<title>The California Drought</title>
 	<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   <meta name="description" content="">
-	
+	<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.8/d3.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
@@ -125,23 +125,26 @@
 			background-color: #730000;
 		}
 		.article-container {
-			max-width: 30em;
 			top: 35px;
 			bottom: 15px;
 			position: absolute;
 			overflow: auto;
-			margin-left: 25px;
-			padding: 10px;
+			margin-left: 65px;
+			padding: 5px 20px 5px 0px;
+			opacity: 0.85;
 		}
-		header {
+		.article-container header {
 			font-size: 2em;
 			line-height: 1;
-			padding: 5px; 
+			padding: 5px;
+			max-width: 510px;
 		}
-		article {
+		.article-container article {
 			margin-top: 10px;
 			padding: 5px 20px 5px 20px;
+			max-width: 30em;
 			line-height: 1.5;
+			white-space: pre-line;
 		}
 		footer {
 			font-size: 1.5em;
@@ -187,59 +190,45 @@
 
 		<div class="pure-u-1-2 article-container">
 			<section>
-				<header class="shadow-box">Drought in California May Make Water More Valuable Than Gold</header>
-				<article class="shadow-box" style="opacity:0.85">
-					With California experiencing the greatest drought in its recorded history, and voluntary conservation measures only marginally reducing overall water usage, the Golden State may see water rates soar to the level where water becomes more valuable than gold.
+				<header class="shadow-box">California's drought getting even worse, experts say</header>
+				<article class="shadow-box">
+					California's drought conditions have worsened over the past week with the percentage of the state suffering from the highest category increasing, the National Weather Service said Thursday.
 
-					With no rain or snow for most of California for the past three years, 2014 has turned out to be among the driest years in the state’s 164-year history. According to the U.S. Draught Monitor, one-third of California is in a state of “exceptional drought” — the most severe level of drought conditions. “Extreme drought” coverage, the second worst category, has now climbed to 67 percent. This is almost twice the level of extreme drought that was recorded in the drought of 2007.
+					"Exceptional" drought conditions have spread in Central California since a week ago, weather officials said. Areas in Northern California have also moved into this category since last week, according to the U.S. Drought Monitor.
 
-					Recognizing the severity of this historic drought on the state, California Governor Jerry Brown declared a State of Emergency on January 17 and then again on April 25, the governor issued an executive order to speed up actions necessary to reduce harmful effects of the drought, and he called on all Californians to redouble their efforts to conserve water.
+					Almost 33% of the state faces exceptional conditions. About 25% of the state faced those conditions last week.
 
-					“I’ve declared this emergency,” stated Governor Brown in an official Drought Declaration order issued from Sacramento.
+					Every part of California remains in what is considered severe drought.
 
-					As a result, California communities from Alameda to Yucca Valley have implemented voluntary mandatory conservation efforts. However, these efforts are falling short of making a real impact on the overall drought challenges California faces. In fact, according to the Public Policy Institute of California, a California think tank, only 75 percent of California residents see the draught as a problem.
+					A year ago, no part of the state was in exceptional drought conditions, the weather service said.
 
-					“People don’t like being dictated to. They prefer voluntary to mandatory conservation,” said a spokesman for the Metropolitan Water District, which provides water to 19 million people in the Los Angeles and San Diego areas.
+					The drought has prompted water conservation efforts as well as rationing in some parts of the state. L.A. saw record dry conditions this winter, and snowfall in the Sierras has also been significantly down.
 
-					Adding to this tepid response to water conservation is California’s complex water management system that lacks a cohesive water management strategy. For example, while only three companies provide the vast majority of Californians’ electricity, there are nearly 3,000 water providers statewide, all with different parameters. These water providers are as diverse as the communities they serve. This is why no California governor has ever been able to order mandatory water rationing statewide. Huge legal questions would arise about how mandatory rationing would work or whether any governor could even enforce the rules, particularly on farmers and their private wells. Therefore, in order to manage usage of water across California as well as prepare for continued drought conditions, many experts believe rates are going to increase dramatically, making water in California more valuable than gold.
+					But the political impact of the drought has been a subject of debate.
 
-					DroughtAccording to Circle of Blue, an independent research organization founded in 2000 by leading journalists and scientists, Fresno will see a more than 30 percent increase in its water fees during 2014 while Los Angeles will likely see a more than 19 percent increase in water rates during the year. San Diego residents have already seen their water rates rise on average 7.25 percent in 2014 with an additional 7.5 percent increase on the horizon in 2015. For San Diego residents, that means that some families could see their monthly water bills increase nearly $230 this year. Adding to these painful rate increases will be additional penalties that come in the form of stiff fines for excessive water usage. These penalties range from $374 to $1,000 for watering violations.
+					A USC Dornsife/Los Angeles Times poll in June found most Californians surveyed say the statewide drought has had little or no impact on their daily lives, and a majority oppose the suspension of environmental protections or large-scale public spending to boost water supplies.
 
-					The message is clear throughout California. Water is quickly as valuable as gold and becoming the most important commodity in the state, and without measurable rainfall in the future, the Golden State can expect to see water treated as liquid gold.
+					Although 89% characterize the drought as a major problem or crisis, only 16% say it has personally affected them to a major degree.
+
+					Despite widespread news coverage of the drought the state's major population centers have largely escaped severe mandatory rationing.
+
+					Even agriculture, which as California's thirstiest sector is inevitably hit the hardest by drought, has partially compensated for reduced water delivery by pumping more groundwater.
 				</article>
+
 				<!-- <footer>By Vincent Aviani</footer> -->
 			</section>
 		</div>
 	</div>
 
 	<script>
-		var places = [
-		  {
-		    name: "San Diego",
-		    title: "Drought in California May Make Water More Valuable Than Gold",
-		    location: {
-		      latitude: 32.715738,
-		      longitude: -117.1610838
-		    }
-		  },
-		  {
-		    name: "San Francisco",
-		    title: "San Francisco Hypocrites: 'Green' City Fails to Conserve Water During Drought",
-		    location: {
-		      latitude: 37.7749295,
-		      longitude: -122.4194155
-		    }
-		  },
-		  {
-		    name: "Black Butte",
-		    title: "California salmon migrate by truck as state helps fish through drought",
-		    location: {
-		      latitude: 41.39166669999999,
-		      longitude: -122.3611111
-		    }
-		  }
-		]
-
+    var placesCollection = new Firebase('https://glaring-fire-1184.firebaseio.com/places'),
+    	length;
+    
+    placesCollection.on('value', function(snapshot){
+    	length = snapshot.numChildren();
+    });
+    
+					
 		var svgWidth = function(){
 			if (window.innerWidth < 615 * 2) {
 				return 615 + "px";
@@ -270,9 +259,10 @@
 
     queue()
       .defer(d3.json, "california-drought-topo.json")
+      .defer(d3.json, "https://glaring-fire-1184.firebaseio.com/places.json")
       .await(drawMap);
 
-    function drawMap(error, map){
+    function drawMap(error, map, places){
       svg.selectAll("path")
         .data(topojson.feature(map, map.objects.drought).features).enter()
         
@@ -318,8 +308,15 @@
         		.transition().duration(150)
         		.attr("r", dotRadius);
         })
-        .on("click", function(){
-        	console.log(this)
+        .on("click", function(d){
+        	d3.select('header').data(places)
+        		.text(function(){
+        			return d.title;
+        		});
+        	d3.select('article').data(places)
+        		.text(function(){
+        			return d.text;
+        		});
         });
     }
 	</script>

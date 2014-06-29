@@ -5,10 +5,14 @@
 	<meta charset="utf-8">
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   <meta name="description" content="">
-	<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.17/firebase.js'></script>
+	<script src="https://cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+	
 	<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.8/d3.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+	
+	<script src="javascripts/codebird.js"></script>
+	<script src="//openlayers.org/api/OpenLayers.js"></script>
 
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/base-min.css">
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
@@ -77,106 +81,6 @@
 			</section>
 		</div>
 	</div>
-
-	<script>
-    var placesCollection = new Firebase('https://glaring-fire-1184.firebaseio.com/places'),
-    	length;
-    
-    placesCollection.on('value', function(snapshot){
-    	length = snapshot.numChildren();
-    });
-    
-					
-		var svgWidth = function(){
-			if (window.innerWidth < 615 * 2) {
-				return 615 + "px";
-			} else {
-				return window.innerWidth / 2;
-			}
-		},
-		  svgHeight = window.innerHeight; //700px
-
-		var projection = d3.geo.albers()
-			.translate([50, svgHeight/2 - 110])
-			//.translate([svgWidth*2, svgHeight / 2 + 50])
-			.scale([3900])
-			.rotate([123,0]);
-		    
-		var svg = d3.select(".svg-container").append("svg")
-	    .attr("width", svgWidth)
-	    .attr("height", svgHeight);
-
-		var path = d3.geo.path()
-		  .projection(projection);
-
-		var dotRadius = 5,
-			tooltip = d3.select(".svg-container").append("div")
-    		.attr("id", "tooltip")
-    		.attr("class", "shadow-box")
-    		.style("opacity", 0);
-
-    queue()
-      .defer(d3.json, "california-drought-topo.json")
-      .defer(d3.json, "https://glaring-fire-1184.firebaseio.com/places.json")
-      .await(drawMap);
-
-    function drawMap(error, map, places){
-      svg.selectAll("path")
-        .data(topojson.feature(map, map.objects.drought).features).enter()
-        
-        .append("path")
-        	.attr("d", path)
-        	.attr("id", function(d){
-        		return "dm" + d.id;
-        });
-
-      svg.selectAll(".dot")
-      	.data(places).enter()
-
-        .append("circle")
-          .attr("r", dotRadius)
-          .attr("transform", function(d){
-            return "translate(" + projection([
-              d.location.longitude,
-              d.location.latitude
-            ]) + ")"
-          })
-          .attr("class", "dot")
-          .attr("cursor", "pointer")
-
-        .on("mouseover", function(d){
-  	      d3.select(this)
-        		.transition().ease("bounce")
-						.attr("r", dotRadius * 2);
-					
-					tooltip
-						//.transition().duration(150)
-						.style("opacity", 1)
-						.text(d.title)
-						.style("left", (d3.event.pageX + 20) + "px")
-						.style("top", (d3.event.pageY - 25) + "px");
-        })
-
-        .on("mouseout", function(){
-        	tooltip
-        		.transition().duration(100)
-        		.style("opacity", 0);
-
-        	d3.select(this)
-        		.transition().duration(150)
-        		.attr("r", dotRadius);
-        })
-        .on("click", function(d){
-        	d3.select('header').data(places)
-        		.text(function(){
-        			return d.title;
-        		});
-        	d3.select('article').data(places)
-        		.text(function(){
-        			return d.text;
-        		});
-        });
-    }
-	</script>
+	<script src="javascripts/script.js"></script>
 </body>
 </html>

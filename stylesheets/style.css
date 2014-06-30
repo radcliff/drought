@@ -29,10 +29,15 @@ path#dm4 {
 	fill: #730000;
 }
 
-circle.dot {
+circle.article-dot {
 	stroke: black;
 	stroke-width: 2;
 	fill: white;
+}
+circle.tweet-dot {
+	stroke: #292f33;
+	stroke-width: 2;
+	fill: #55ACEE;
 }
 #tooltip {
 	position: absolute;

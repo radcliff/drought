@@ -38,19 +38,21 @@
         	.attr("id", function(d){
         		return "dm" + d.id;
         });
-       placesListener();
+
+        articlesListener(); 
+        tweetsListener();
     };
 
-    function drawCircles(places){
-      svg.selectAll(".dot")
-  	    .data(places).exit()
+    function drawCircles(articles){
+      svg.selectAll(".article-dot")
+  	    .data(articles).exit()
   		
     		.transition().duration(300)
     		.attr("r", 0)
     		.remove();
 
-      svg.selectAll(".dot")
-      	.data(places).enter()
+      svg.selectAll(".article-dot")
+      	.data(articles).enter()
 
         .append("circle")
           .attr("r", 0)
@@ -60,12 +62,12 @@
               d.location.latitude
             ]) + ")"
           })
-          .attr("class", "dot")
+          .attr("class", "article-dot")
           .transition().duration(750).ease("bounce")
           .attr("r", dotRadius)
           .attr("cursor", "pointer")
 
-        svg.selectAll(".dot")
+        svg.selectAll(".article-dot")
         .on("mouseover", function(d){
   	      d3.select(this)
         		.transition().ease("bounce")
@@ -89,66 +91,83 @@
         		.attr("r", dotRadius);
         })
         .on("click", function(d){
-        	d3.select('header').data(places)
+        	d3.select('header').data(articles)
         		.text(function(){
         			return d.title;
         		});
-        	d3.select('article').data(places)
+        	d3.select('article').data(articles)
         		.text(function(){
         			return d.text;
         		});
         });
     }
     
-    function removeCircle(places){
-    	console.log(place);
+    function removeCircle(articles){
+    	console.log(article);
       svg.selectAll(".dot")
-  	    .data(places).exit()
+  	    .data(articles).exit()
   		
     		.transition().duration(300)
     		.attr("r", 50);
 		}
     
-    var placesCollection = new Firebase('https://glaring-fire-1184.firebaseio.com/places'),
-    	length;
-    
-    placesCollection.on('value', function(snapshot){
-    	length = placesCollection.length = snapshot.numChildren();
+    var californiaBoundaryCollection = new Firebase('https://glaring-fire-1184.firebaseio.com/california');
+
+    var californiaBoundaryGeometry;
+      californiaBoundaryCollection.once('value', function(snapshot){
+        californiaBoundaryGeometry = snapshot.val();
     });
 
-    var placesListener = function(){
-    	var places,
-    		place = [];
+    var articlesCollection = new Firebase('https://glaring-fire-1184.firebaseio.com/articles'),
+    	articleLength;
+
+    var articlesListener = function(){
+    	var articles;
     	
-    	placesCollection.on('value', function(snapshot){
-    		places = snapshot.val();
-    		console.log(places.length);
+    	articlesCollection.on('value', function(snapshot){
+    		articles = snapshot.val();
+        articleLength = articles.length
+    		console.log("articles: " + articles.length);
     		
-    		drawCircles(places);
+    		drawCircles(articles);
     	});
-    	placesCollection.on('child_removed',function(snapshot){
-    		console.log(snapshot.val());
+    	// articlesCollection.on('child_removed',function(snapshot){
+    	// 	console.log(snapshot.val());
     		
-    		placesListener();
-    	});
+    	// 	articlesListener();
+    	// });
 		};
 
-		var californiaBoundaryCollection = new Firebase('https://glaring-fire-1184.firebaseio.com/california');
+    var tweetsCollection = new Firebase('https://glaring-fire-1184.firebaseio.com/tweets'),
+      tweetsLength,
+      knownTweets;
 
-		var californiaBoundaryGeometry;
-			californiaBoundaryCollection.once('value', function(snapshot){
-				californiaBoundaryGeometry = snapshot.val()
-		});
+    var tweetsListener = function(){
+      getTweets();
+      tweetsCollection.on('value', function(snapshot){
+        knownTweets = snapshot.val();
+        if (knownTweets) {
+          tweetsLength = knownTweets.length;
+          console.log("tweets: " + knownTweets.length);
+          drawTweetCircles(knownTweets);
+        }
+      });
+      // tweetsCollection.on('child_removed',function(snapshot){
+      //   console.log(snapshot.val());
+        
+      //   tweetsListener();
+      // });
+    };
 
 		var getTweets = function(){
 			var cb = new Codebird;
 
-			cb.setConsumerKey("HrIDzuDdp3ssdDL1BzzK8pypI", "ztnrBDna3NlHdqYXuj3waaxKny9Bya7JwT2hDHUSJYQPDcVv37");
+			cb.setConsumerKey("", "");
 			cb.__call("oauth2_token", {}, function(reply){
 			  var bearer_token = reply.access_token;
 			});
 
-			var	params = { q: "Drought", count: 100 },
+			var	params = { q: "California Drought", count: 100 },
 				results
 			
 			cb.__call("search_tweets", params, function(reply){
@@ -162,9 +181,7 @@ console.log(results);
 		var getGeoTweets = function(results){
 			var tweets = [];
 			for (var i = 0; i < results.statuses.length; i++){
-console.log(results.statuses[i].coordinates);
 				if (results.statuses[i].coordinates){
-
 					tweets.push(results.statuses[i]);
 				};
 			};
@@ -176,7 +193,7 @@ console.log(tweets);
 		var getGeoTweetsInCalifornia = function(tweets){
 			var longitude,
 				latitude,
-				newPlace = {};
+				geoTweet = {};
 
 			for (var i = 0; i < tweets.length; i++){
 				longitude = tweets[i].coordinates.coordinates[0];
@@ -190,15 +207,49 @@ console.log(point);
 				for (var i = 0; i < vectors.length; i++){
 			    if(vectors[i].geometry.intersects(point)){
 console.log("CALI TWEETS: ");
-console.log(newPlace);
-						newPlace.location = {};
-			      newPlace.location.longitude = longitude;
-			      newPlace.location.latitude = latitude;
+console.log(geoTweet);
+						geoTweet.location = {};
+			      geoTweet.location.longitude = longitude;
+			      geoTweet.location.latitude = latitude;
 			      
-			      //placesCollection.child(length).set(newPlace);
-			    };
+            for (var i = 0; i < knownTweets.length; i++){
+              if (knownTweets[i].location.latitude === geoTweet.location.latitude && 
+                knownTweets[i].location.longitude === geoTweet.location.longitude){
+console.log("NOT unique!");
+              } else {
+console.log("UNIQUE FOUND!");
+                tweetsCollection.child(tweetsLength).set(geoTweet);
+              }
+            }
+			    } else {
+            console.log("NOT IN CALI");
+          }
 				};
 			};
 		};
 
-		//getTweets();
+    function drawTweetCircles(tweets){
+      svg.selectAll(".tweet-dot")
+        .data(tweets).exit()
+      
+        .transition().duration(300)
+        .attr("r", 0)
+        .remove();
+
+      svg.selectAll(".tweet-dot")
+        .data(tweets).enter()
+
+        .append("circle")
+          .transition().ease("elastic")
+          .attr("r", 0)
+          .attr("transform", function(d){
+            return "translate(" + projection([
+              d.location.longitude,
+              d.location.latitude
+            ]) + ")"
+          })
+          .attr("class", "tweet-dot")
+          .transition().duration(750).ease("bounce")
+          .attr("r", dotRadius)
+          .attr("cursor", "pointer")
+    };

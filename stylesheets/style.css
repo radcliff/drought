@@ -4,6 +4,7 @@ html, body {
 }
 body {
 	background-color: #FFFAEF;
+	font-family: 'Droid Sans', sans-serif;
 }
 
 /************* SVG *************/
@@ -81,6 +82,7 @@ circle.tweet-dot {
 	font-weight: bold;
 	left: 10px;
 	bottom: 15px;
+	font-family: 'Droid Sans', sans-serif;
 }
 .legend-header {
 	font-size: .85em;
@@ -96,7 +98,10 @@ circle.tweet-dot {
 table.legend td {
 	padding: 0 3px 0 3px;
 }
-tr#top-row td, tr#bottom-row td {
+tr#top-row td {
+	padding-top: 3px;
+}
+tr#bottom-row td {
 	padding-bottom: 3px;
 }
 div.color-key {
@@ -130,8 +135,12 @@ div#dm4 {
 .article-container header {
 	font-size: 2em;
 	line-height: 1;
-	padding: 5px;
+	padding: 5px 20px 5px 20px;
 	max-width: 510px;
+	font-family: 'Droid Sans', sans-serif;
+	background-color: #EFF4FF;
+	border-bottom: 1px solid #FFFFFF;
+	opacity: .8;
 }
 .article-container article {
 	margin-top: 10px;
@@ -139,6 +148,8 @@ div#dm4 {
 	max-width: 30em;
 	line-height: 1.5;
 	white-space: pre-line;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight: normal;
 }
 footer {
 	font-size: 1.5em;

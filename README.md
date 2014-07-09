@@ -9,5 +9,7 @@ This basic single-page app leverages a government dataset, D3 and Firebase. Clie
 * Real-time document storage with Firebase(noSQL)
 * Calls to Twitter API leveraging Codebird.js API wrapper
 
-##In the future 
-I would like to continue building out the automation of clipping the drought data and converting it to GeoJSON on the server side programmatically. 
+Using a simply Ruby script and the amazing RGeo library, clipping the drought data and converting it to GeoJSON is easy. However, saving newly converted JSON to disk seems like a naive and slow solution when compared to an indexed PostGIS database.
+
+##In the future
+I would like to build a Rails app with a PostGIS database, and utilizing the rgeo-shapefile gem to insert shapes directly into the database. This Rails app could easily be made into a public json API allowing anyone to develop on top of the US Drought Monitor dataset.

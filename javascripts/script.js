@@ -45,13 +45,6 @@ function drawMap(error, map){
 
 function drawCircles(articles){
   svg.selectAll(".article-dot")
-    .data(articles).exit()
-	
-		.transition().duration(300)
-		.attr("r", 0)
-		.remove();
-
-  svg.selectAll(".article-dot")
   	.data(articles).enter()
 
     .append("circle")
@@ -104,10 +97,10 @@ function drawCircles(articles){
     });
 }
 
-function removeCircle(articles){
+function removeCircle(article){
 	console.log(article);
   svg.selectAll(".dot")
-    .data(articles).exit()
+    .data(article).exit()
 	
 		.transition().duration(300)
 		.attr("r", 50);
@@ -133,9 +126,10 @@ var articlesListener = function(){
 		
 		drawCircles(articles);
 	});
-	// articlesCollection.on('child_removed',function(snapshot){
-	// 	console.log(snapshot.val());
-		
-	// 	articlesListener();
-	// });
+	articlesCollection.on('child_removed',function(snapshot){
+		circle = snapshot.val();
+		console.log(circle);
+    console.log(articles.indexOf(circle)); // logs -1 because article is no longer in database
+    removeCircle(circle);
+	});
 };

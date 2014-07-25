@@ -26,12 +26,12 @@ var dotRadius = 5,
 		.style("opacity", 0);
 
 queue()
-  .defer(d3.json, "https://glaring-fire-1184.firebaseio.com/california-drought-topo.json")
+  .defer(d3.json, "http://secret-falls-4489.herokuapp.com/?s=california")
   .await(drawMap);
 
 function drawMap(error, map){
   svg.selectAll("path")
-    .data(topojson.feature(map, map.objects.drought).features).enter()
+    .data(topojson.feature(map, map.objects.collection).features).enter()
     
     .append("path")
     	.attr("d", path)
